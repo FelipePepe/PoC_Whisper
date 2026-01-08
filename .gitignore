@@ -23,3 +23,9 @@ env/
 *_transcripcion.txt
 *_diarized_*.txt
 transcripcion.txt
+
+# Carpeta de salidas generadas
+outputs/
+
+# Coverage artifact
+.coverage
