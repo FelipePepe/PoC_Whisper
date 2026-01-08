@@ -1,0 +1,3 @@
+#!/bin/sh
+# Shell wrapper to launch the GUI frontend
+exec python -m src.gui "$@"

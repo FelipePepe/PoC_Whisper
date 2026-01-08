@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11, 3.12, 3.13]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov
+        pip install behave
+
+    - name: Run unit tests (transcribe)
+      run: |
+        pytest tests/unit --maxfail=1 --disable-warnings -q --cov=src/transcribe.py --cov-fail-under=85
+
+    - name: Run integration tests (diarize)
+      run: |
+        pytest tests/integration --maxfail=1 --disable-warnings -q --cov=src/diarize.py --cov-fail-under=85
+
+    - name: Run e2e tests (gui)
+      run: |
+        pytest tests/e2e --maxfail=1 --disable-warnings -q --cov=src/gui.py --cov-fail-under=85
+
+    - name: Run BDD features (behave)
+      run: |
+        behave -f progress

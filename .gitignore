@@ -1,0 +1,25 @@
+# PoC Whisper - Archivos de configuración
+*.pyc
+__pycache__/
+.DS_Store
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Variables de entorno (contiene secretos)
+.env
+
+# Archivos de audio
+*.mp3
+*.wav
+*.m4a
+*.mp4
+*.webm
+
+# Archivos de transcripción
+*_transcripcion.txt
+*_diarized_*.txt
+transcripcion.txt
